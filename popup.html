@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PixelPerfect</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<div class="popup">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-mark"></div>
+      <span class="logo-text">PixelPerfect</span>
+    </div>
+  </header>
+
+  <!-- Upload row -->
+  <div class="upload-row">
+    <button class="up-btn" id="btn-upload">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
+      Upload
+    </button>
+    <button class="up-btn" id="btn-url">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      URL
+    </button>
+    <button class="up-btn" id="btn-paste">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+      Paste
+    </button>
+  </div>
+  <input type="file" id="file-input" accept="image/*" multiple style="display:none">
+
+  <!-- URL input bar -->
+  <div id="url-bar" class="url-bar" style="display:none">
+    <input type="url" id="url-input" placeholder="https://example.com/image.png" class="url-input">
+    <button id="btn-url-load" class="url-go">Go</button>
+  </div>
+
+  <!-- Layers header -->
+  <div class="layers-hdr">
+    <span id="layers-title" class="layers-title">LAYERS (0)</span>
+  </div>
+
+  <!-- Layer thumbnail grid -->
+  <div id="layer-grid" class="layer-grid">
+    <div class="grid-empty">No layers &mdash; click Upload to begin</div>
+  </div>
+
+  <!-- Controls for selected layer -->
+  <div id="layer-controls" class="layer-controls" style="display:none">
+
+    <!-- Show / Lock / Invert -->
+    <div class="action-row">
+      <button id="btn-show" class="action-btn active">
+        <svg id="ico-eye" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Show
+      </button>
+      <div class="act-sep"></div>
+      <button id="btn-lock" class="action-btn">
+        <svg id="ico-lock" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Lock
+      </button>
+      <div class="act-sep"></div>
+      <button id="btn-invert" class="action-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/><path d="M12 3a9 9 0 000 18" fill="currentColor" stroke="none"/></svg>
+        Invert <span class="drop-arr">&#9662;</span>
+      </button>
+    </div>
+
+    <!-- Origin section -->
+    <div class="ctrl-sec">
+      <div class="ctrl-sec-hdr">
+        <span class="ctrl-lbl">ORIGIN:</span>
+        <button id="btn-reset-pos" class="pink-text-btn">RESET</button>
+      </div>
+      <div class="origin-body">
+        <!-- Nav pad -->
+        <div class="nav-pad">
+          <div class="nav-row"><button class="nav-btn" data-dir="up">^</button></div>
+          <div class="nav-row">
+            <button class="nav-btn" data-dir="left">&lt;</button>
+            <button class="nav-btn nav-ctr" id="btn-nav-center">&#20013;</button>
+            <button class="nav-btn" data-dir="right">&gt;</button>
+          </div>
+          <div class="nav-row"><button class="nav-btn" data-dir="down">v</button></div>
+        </div>
+        <!-- X / Y / Scale inputs -->
+        <div class="pos-fields">
+          <div class="pos-field">
+            <input type="number" id="pos-x" value="0" class="num-field">
+            <span class="field-tag">X</span>
+          </div>
+          <div class="pos-field">
+            <input type="number" id="pos-y" value="0" class="num-field">
+            <span class="field-tag">Y</span>
+          </div>
+          <div class="pos-field">
+            <input type="number" id="scale-input" value="1.00" step="0.05" min="0.1" max="5" class="num-field">
+            <span class="field-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2" stroke-linecap="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Opacity section -->
+    <div class="ctrl-sec opacity-sec">
+      <div class="ctrl-sec-hdr">
+        <span class="ctrl-lbl">OPACITY:</span>
+        <span id="opacity-value" class="opacity-pct">50%</span>
+      </div>
+      <input type="range" id="opacity-slider" min="0" max="100" value="50" class="slider">
+    </div>
+
+  </div>
+
+  <div id="error-bar" class="error-bar" style="display:none"></div>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>
