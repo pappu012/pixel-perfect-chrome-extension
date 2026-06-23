@@ -79,8 +79,9 @@ function renderLayerList() {
   grid.innerHTML = '';
   for (const layer of [...layers].reverse()) {
     const item = document.createElement('div');
-    item.className  = 'thumb-item' + (layer.id === selectedId ? ' selected' : '');
-    item.dataset.id = layer.id;
+    item.className   = 'thumb-item' + (layer.id === selectedId ? ' selected' : '');
+    item.dataset.id   = layer.id;
+    item.dataset.name = layer.name;
 
     const thumb = thumbnailCache.get(layer.id);
     item.innerHTML = `
